@@ -35,3 +35,32 @@ args=parser.parse_args('-b'.split())
 # OK
 args=parser.parse_args('-c'.split())
 
+
+# What if you want an argument to take an argument?
+# Let's say you want some arg "book" to take the name of the book
+# but if you say "newspaper", it should take the name of the newspaper
+
+parser = argparse.ArgumentParser(description='parser with subcommands')
+subparser = parser.add_subparsers(help='choose book/newspaper')
+parser_book = subparser.add_parser('book', help='the book')
+parser_newspaper = subparser.add_parser('newspaper', help='the newspaper')
+parser_book.add_argument('title', help='title of the book', type=str)
+# _StoreAction(option_strings=[], dest='title', nargs=None, const=None, default=None, type=<type 'str'>, choices=None, help='title of the book', metavar=None)
+
+parser_newspaper.add_argument('title', help='title of the newspaper', type=str)
+# _StoreAction(option_strings=[], dest='title', nargs=None, const=None, default=None, type=<type 'str'>, choices=None, help='title of the newspaper', metavar=None)
+parser.print_help()
+# usage: ipython [-h] {book,newspaper} ...
+
+# parser with subcommands
+
+# positional arguments:
+#   {book,newspaper}  choose book/newspaper
+#     book            the book
+#     newspaper       the newspaper
+
+# optional arguments:
+#   -h, --help        show this help message and exit
+
+# To ry it:
+parser.parse_args(['book', 'Alice In Wonderland'])
